@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CandyBar.company — The World's Sweetest Bars, Delivered</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --ink:      #0F0A00;
+  --cream:    #FFF8ED;
+  --gold:     #F5C842;
+  --red:      #E8362A;
+  --cobalt:   #0D4EA6;
+  --forest:   #1B5E3B;
+  --terracotta:#C4552A;
+  --sand:     #F0E4C8;
+  --mint:     #D4F5E2;
+  --sky:      #D0E8FF;
+  --lavender: #E8DCFF;
+  --peach:    #FFE0CC;
+}
+html { scroll-behavior: smooth; }
+body { font-family:'Syne',sans-serif; background:var(--cream); color:var(--ink); overflow-x:hidden; }
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--ink)}::-webkit-scrollbar-thumb{background:var(--gold)}
+
+/* NAV */
+nav{background:var(--ink);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:62px;position:sticky;top:0;z-index:300;border-bottom:3px solid var(--gold)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.06em;color:var(--gold)}
+.nav-logo span{color:var(--red)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-right{display:flex;gap:12px;align-items:center}
+.nav-flag{font-size:18px;cursor:pointer;opacity:.6;transition:opacity .2s}.nav-flag:hover{opacity:1}
+.nav-shop{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--gold);color:var(--ink);border:none;padding:10px 22px;cursor:pointer;transition:all .2s}
+.nav-shop:hover{background:var(--red);color:#fff}
+
+/* TICKER */
+.ticker{background:var(--red);border-bottom:2px solid var(--ink);padding:10px 0;overflow:hidden}
+.ticker-track{display:flex;white-space:nowrap;animation:scroll-x 22s linear infinite}
+.t-item{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#fff;padding:0 32px;display:inline-flex;align-items:center;gap:16px}
+.t-item::after{content:attr(data-flag)}
+@keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* HERO */
+.hero{min-height:94vh;background:var(--ink);display:grid;grid-template-rows:1fr auto;position:relative;overflow:hidden;border-bottom:4px solid var(--gold)}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(245,200,66,.18) 1.5px,transparent 1.5px);background-size:32px 32px;pointer-events:none}
+.hero-inner{display:grid;grid-template-columns:1fr 480px;align-items:end;padding:80px 48px 0;gap:48px;position:relative;z-index:2}
+.hero-left{padding-bottom:80px}
+.hero-kicker{display:inline-flex;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:36px}
+.hero-kicker-dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(88px,13vw,200px);line-height:.88;letter-spacing:.02em;color:var(--cream)}
+.hero-h1 .line-accent{color:var(--gold);display:block}
+.hero-h1 .line-red{color:var(--red);display:block}
+.hero-tagline{font-family:'Instrument Serif',serif;font-size:20px;font-style:italic;color:rgba(255,255,255,.5);margin:32px 0 48px;max-width:440px;line-height:1.6}
+.hero-ctas{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn-gold{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;background:var(--gold);color:var(--ink);border:3px solid var(--gold);padding:16px 36px;display:inline-block;transition:all .2s;cursor:pointer}
+.btn-gold:hover{background:transparent;color:var(--gold)}
+.btn-ghost{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;background:transparent;color:rgba(255,255,255,.5);border:3px solid rgba(255,255,255,.15);padding:16px 36px;display:inline-block;transition:all .2s;cursor:pointer}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Hero globe tiles */
+.hero-globe{position:relative;padding-bottom:60px;display:flex;flex-direction:column;gap:14px;align-items:flex-end;justify-content:flex-end}
+.globe-ring{display:flex;gap:14px;justify-content:flex-end}
+.globe-tile{border:2px solid rgba(255,255,255,.1);border-radius:4px;overflow:hidden;cursor:pointer;transition:transform .25s,border-color .25s}
+.globe-tile:hover{transform:translateY(-6px) scale(1.04);border-color:var(--gold);z-index:5}
+.globe-tile-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px 12px}
+.g-flag{font-size:32px}.g-name{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.g-candy{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--cream);text-align:center;line-height:1.3}
+.g-price{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold)}
+.g-bar{font-size:20px}
+
+/* Hero bottom strip */
+.hero-bottom-strip{border-top:2px solid rgba(255,255,255,.08);display:flex;position:relative;z-index:2}
+.hbs-item{flex:1;padding:22px 36px;border-right:2px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px}
+.hbs-item:last-child{border-right:none}
+.hbs-num{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold);line-height:1}
+.hbs-text{display:flex;flex-direction:column;gap:2px}
+.hbs-text strong{font-size:13px;color:var(--cream)}
+.hbs-text span{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.3);text-transform:uppercase}
+
+/* SECTION HELPERS */
+.section-eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(0,0,0,.35);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.section-eyebrow::before{content:'';display:block;width:36px;height:2px;background:var(--red)}
+.section-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,96px);letter-spacing:.04em;line-height:.9;margin-bottom:64px}
+.section-h2 em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--terracotta);font-size:.75em}
+
+/* COUNTRIES */
+.by-country{padding:100px 48px;background:var(--cream);border-bottom:3px solid var(--ink)}
+.countries-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--ink);border:3px solid var(--ink)}
+.country-card{background:var(--cream);padding:48px 40px;display:flex;flex-direction:column;gap:16px;cursor:pointer;position:relative;overflow:hidden;transition:all .3s;min-height:260px}
+.country-card::after{content:'→';position:absolute;bottom:32px;right:32px;font-size:24px;opacity:0;transition:opacity .3s,transform .3s;font-weight:900}
+.country-card:hover::after{opacity:1;transform:translateX(4px)}
+.cc-flag{font-size:56px;line-height:1}
+.cc-country{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.04em;line-height:1;transition:color .3s}
+.cc-desc{font-family:'Instrument Serif',serif;font-size:15px;font-style:italic;color:#666;line-height:1.6;max-width:260px}
+.cc-count{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#999;margin-top:auto}
+.cc-it{--card-accent:#009246}.cc-fr{--card-accent:#002395}.cc-gh{--card-accent:#006B3F}
+.cc-pt{--card-accent:#006600}.cc-co{--card-accent:#C8152B}.cc-jp{--card-accent:#BC002D}
+.country-card:hover{background:var(--card-accent,var(--ink))}
+.country-card:hover .cc-country,.country-card:hover .cc-desc,.country-card:hover .cc-count{color:rgba(255,255,255,.85)}
+.country-card:hover::after{color:#fff}
+
+/* PRODUCTS */
+.products{background:var(--sand);border-bottom:3px solid var(--ink);padding:100px 48px}
+.products-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:64px}
+.see-all{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--ink);padding-bottom:3px;transition:color .2s,border-color .2s}
+.see-all:hover{color:var(--red);border-color:var(--red)}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.prod-card{border:3px solid var(--ink);background:var(--cream);cursor:pointer;transition:transform .25s,box-shadow .25s;position:relative}
+.prod-card:hover{transform:translate(-4px,-8px);box-shadow:7px 11px 0 var(--ink)}
+.prod-origin{position:absolute;top:14px;left:14px;z-index:5;display:flex;align-items:center;gap:6px;background:var(--ink);color:var(--gold);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px}
+.prod-origin .pflag{font-size:13px}
+.prod-visual{height:280px;position:relative;overflow:hidden;border-bottom:3px solid var(--ink);display:flex;align-items:center;justify-content:center}
+.prod-bar{width:110px;height:190px;border:2.5px solid var(--ink);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;gap:6px;position:relative;overflow:hidden;box-shadow:6px 6px 0 rgba(0,0,0,.15)}
+.prod-bar::before{content:'';position:absolute;top:0;left:0;right:0;height:48px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.4) 0,rgba(255,255,255,.4) 3px,transparent 3px,transparent 10px);border-bottom:1.5px solid var(--ink);z-index:3}
+.prod-bar-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em;color:var(--ink);text-align:center;line-height:1;position:relative;z-index:2}
+.prod-bar-sub{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);position:relative;z-index:2;text-align:center}
+.prod-info{padding:18px 18px 0}
+.prod-name{font-family:'Instrument Serif',serif;font-size:18px;line-height:1.25;margin-bottom:4px}
+.prod-origin-text{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:12px}
+.prod-bottom{padding:0 18px 18px;display:flex;justify-content:space-between;align-items:center}
+.prod-price{font-family:'Syne',sans-serif;font-size:18px;font-weight:800}
+.prod-add{background:var(--ink);color:var(--gold);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;padding:10px 16px;cursor:pointer;transition:background .2s}
+.prod-add:hover{background:var(--red)}
+
+/* STORY */
+.story{background:var(--forest);border-bottom:3px solid var(--gold);padding:0;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.story-left{padding:100px 64px;display:flex;flex-direction:column;justify-content:center;gap:28px;border-right:3px solid rgba(255,255,255,.1)}
+.story-left h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,6.5vw,88px);color:var(--gold);line-height:.9;letter-spacing:.03em}
+.story-left h2 em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--cream);font-size:.8em;display:block}
+.story-left p{font-family:'Instrument Serif',serif;font-size:19px;font-style:italic;color:rgba(255,255,255,.65);line-height:1.75;max-width:440px}
+.story-left p strong{color:var(--gold);font-style:normal}
+.story-cta{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:2px solid var(--gold);padding:14px 28px;transition:all .2s;width:fit-content}
+.story-cta:hover{background:var(--gold);color:var(--ink)}
+.story-right{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.story-stat{padding:48px 40px;border-right:2px solid rgba(255,255,255,.08);border-bottom:2px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:8px}
+.story-stat:nth-child(2n){border-right:none}.story-stat:nth-child(3),.story-stat:nth-child(4){border-bottom:none}
+.story-stat .big{font-family:'Bebas Neue',sans-serif;font-size:72px;color:var(--gold);line-height:1}
+.story-stat strong{font-size:15px;color:var(--cream)}
+.story-stat span{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.35);text-transform:uppercase}
+
+/* SPOTLIGHT */
+.spotlight{background:var(--gold);border-bottom:3px solid var(--ink);padding:100px 48px;position:relative;overflow:hidden}
+.spotlight::before{content:'🇬🇭';position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-size:400px;opacity:.06;line-height:1;pointer-events:none}
+.spotlight-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:2}
+.spotlight-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.4);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.spotlight-label::before{content:'COUNTRY OF THE MONTH';background:var(--ink);color:var(--gold);padding:4px 12px;font-size:9px}
+.spotlight h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,8vw,110px);line-height:.88;letter-spacing:.03em;margin-bottom:28px}
+.spotlight h2 .flag-inline{font-size:.65em;vertical-align:middle}
+.spotlight p{font-family:'Instrument Serif',serif;font-size:18px;font-style:italic;line-height:1.75;color:rgba(0,0,0,.65);max-width:460px;margin-bottom:36px}
+.spotlight-products{display:flex;flex-direction:column;gap:16px}
+.sl-prod{background:var(--ink);color:var(--cream);padding:24px 28px;display:flex;align-items:center;gap:24px;border:3px solid var(--ink);cursor:pointer;transition:background .2s}
+.sl-prod:hover{background:var(--forest)}
+.sl-prod-emoji{font-size:28px}
+.sl-prod-info{flex:1}
+.sl-prod-name{font-family:'Instrument Serif',serif;font-size:16px;font-style:italic;margin-bottom:4px}
+.sl-prod-type{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.sl-prod-price{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);letter-spacing:.06em}
+
+/* HOW */
+.how{background:var(--cream);border-bottom:3px solid var(--ink);padding:100px 48px}
+.how h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,96px);letter-spacing:.04em;margin-bottom:64px}
+.how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:3px solid var(--ink)}
+.how-step{padding:48px 36px;border-right:3px solid var(--ink);position:relative;transition:background .25s}
+.how-step:last-child{border-right:none}
+.how-step:hover{background:var(--sand)}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:80px;color:rgba(0,0,0,.07);line-height:1;margin-bottom:24px;letter-spacing:.02em}
+.step-icon{font-size:36px;margin-bottom:20px;display:block}
+.step-title{font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;margin-bottom:12px;line-height:1.2}
+.step-desc{font-size:14px;color:#555;line-height:1.7}
+
+/* TESTIMONIALS */
+.testimonials{background:var(--ink);border-bottom:3px solid var(--gold);padding:100px 48px}
+.testimonials h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,5.5vw,72px);color:var(--gold);letter-spacing:.04em;margin-bottom:56px}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.t-card{border:2px solid rgba(255,255,255,.1);padding:40px 36px;transition:border-color .2s}
+.t-card:hover{border-color:var(--gold)}
+.t-stars{color:var(--gold);font-size:16px;letter-spacing:4px;margin-bottom:24px}
+.t-quote{font-family:'Instrument Serif',serif;font-size:18px;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:28px}
+.t-author{display:flex;align-items:center;gap:14px}
+.t-avatar{width:40px;height:40px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:20px}
+.t-info strong{font-size:13px;color:var(--cream);display:block}
+.t-info span{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+
+/* NEWSLETTER */
+.newsletter{background:var(--cobalt);border-bottom:3px solid var(--ink);padding:100px 48px;position:relative;overflow:hidden}
+.newsletter::before{content:'✈️';position:absolute;right:80px;top:50%;transform:translateY(-50%);font-size:300px;opacity:.04;pointer-events:none}
+.nl-inner{max-width:680px;margin:0 auto;text-align:center;position:relative;z-index:2}
+.nl-inner h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,88px);color:var(--cream);letter-spacing:.04em;line-height:.9;margin-bottom:20px}
+.nl-inner h2 span{color:var(--gold)}
+.nl-inner p{font-family:'Instrument Serif',serif;font-size:18px;font-style:italic;color:rgba(255,255,255,.6);margin-bottom:44px;line-height:1.6}
+.nl-form{display:flex;border:3px solid var(--gold);margin-bottom:20px}
+.nl-form input{flex:1;padding:18px 22px;background:transparent;border:none;outline:none;font-family:'Syne',sans-serif;font-size:15px;color:var(--cream)}
+.nl-form input::placeholder{color:rgba(255,255,255,.3)}
+.nl-form button{background:var(--gold);color:var(--ink);border:none;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:0 32px;cursor:pointer;transition:background .2s;white-space:nowrap}
+.nl-form button:hover{background:var(--red);color:#fff}
+.nl-note{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.08em}
+
+/* BLOG */
+.blog{background:var(--sand);border-bottom:3px solid var(--ink);padding:100px 48px}
+.blog-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px}
+.blog-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3px;background:var(--ink);border:3px solid var(--ink)}
+.b-card{background:var(--cream);cursor:pointer;transition:background .2s}
+.b-img{height:280px;overflow:hidden;border-bottom:3px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:80px}
+.b-img.sm{height:160px;font-size:56px}
+.b-img.bg1{background:var(--lavender)}.b-img.bg2{background:var(--mint)}.b-img.bg3{background:var(--peach)}
+.b-body{padding:28px 28px 32px}
+.b-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#999;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.b-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0}
+.b-title{font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;line-height:1.3;margin-bottom:12px}
+.b-title.small{font-size:17px}
+.b-excerpt{font-size:14px;color:#555;line-height:1.7}
+
+/* MARQUEE */
+.marquee{background:var(--red);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);padding:12px 0;overflow:hidden}
+.marquee-track{display:flex;white-space:nowrap;animation:scroll-x 14s linear infinite}
+.m-word{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,8vw,100px);color:var(--cream);padding:0 36px;letter-spacing:.04em;line-height:1;display:inline-flex;align-items:center;gap:36px}
+.m-word::after{content:'✦';font-size:.4em;color:var(--gold);vertical-align:middle}
+
+/* FOOTER */
+footer{background:var(--ink);color:var(--cream);padding:80px 48px 48px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;padding-bottom:56px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:40px}
+.f-logo{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.06em;color:var(--gold);margin-bottom:16px;display:block}
+.f-logo span{color:var(--red)}
+.f-brand p{font-family:'Instrument Serif',serif;font-size:15px;font-style:italic;color:rgba(255,255,255,.4);line-height:1.75;max-width:260px;margin-bottom:24px}
+.f-flags{display:flex;gap:10px;flex-wrap:wrap}
+.f-flag-item{font-size:22px;cursor:pointer;transition:transform .2s}.f-flag-item:hover{transform:scale(1.2)}
+.f-col h4{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:24px}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.f-col a{font-size:14px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}.f-col a:hover{color:var(--gold)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.2)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+@media(max-width:1000px){
+  .hero-inner{grid-template-columns:1fr}.hero-globe{display:none}
+  .countries-grid{grid-template-columns:repeat(2,1fr)}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .story{grid-template-columns:1fr}.story-right{display:none}
+  .spotlight-inner{grid-template-columns:1fr}
+  .how-steps{grid-template-columns:1fr 1fr}
+  .how-step{border-bottom:3px solid var(--ink)}
+  .t-grid{grid-template-columns:1fr}
+  .blog-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  nav{padding:0 20px}.nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Candy<span>Bar</span>.company</div>
+  <ul class="nav-links">
+    <li><a href="#countries">By Country</a></li>
+    <li><a href="#products">All Bars</a></li>
+    <li><a href="#spotlight">Spotlight</a></li>
+    <li><a href="#blog">Stories</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-flag">🇮🇹</span><span class="nav-flag">🇬🇭</span>
+    <span class="nav-flag">🇫🇷</span><span class="nav-flag">🇨🇴</span>
+    <button class="nav-shop">Shop Now</button>
+  </div>
+</nav>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="t-item" data-flag="🇮🇹">Perugina — Italy</span>
+    <span class="t-item" data-flag="🇬🇭">Golden Tree — Ghana</span>
+    <span class="t-item" data-flag="🇫🇷">Valrhona — France</span>
+    <span class="t-item" data-flag="🇨🇴">Luker — Colombia</span>
+    <span class="t-item" data-flag="🇵🇹">Arcádia — Portugal</span>
+    <span class="t-item" data-flag="🇯🇵">Meiji — Japan</span>
+    <span class="t-item" data-flag="🇧🇪">Neuhaus — Belgium</span>
+    <span class="t-item" data-flag="🇲🇽">Abuelita — Mexico</span>
+    <span class="t-item" data-flag="🇮🇹">Perugina — Italy</span>
+    <span class="t-item" data-flag="🇬🇭">Golden Tree — Ghana</span>
+    <span class="t-item" data-flag="🇫🇷">Valrhona — France</span>
+    <span class="t-item" data-flag="🇨🇴">Luker — Colombia</span>
+    <span class="t-item" data-flag="🇵🇹">Arcádia — Portugal</span>
+    <span class="t-item" data-flag="🇯🇵">Meiji — Japan</span>
+    <span class="t-item" data-flag="🇧🇪">Neuhaus — Belgium</span>
+    <span class="t-item" data-flag="🇲🇽">Abuelita — Mexico</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-kicker"><span class="hero-kicker-dot"></span>Candy from Every Corner of the Earth</div>
+      <h1 class="hero-h1">THE<br><span class="line-accent">WORLD'S</span><span class="line-red">SWEETEST</span>BARS</h1>
+      <p class="hero-tagline">One passport. 40+ countries. Infinite flavours.<br>Discover the candy the world has been hiding from you.</p>
+      <div class="hero-ctas">
+        <a href="#products" class="btn-gold">Start Exploring →</a>
+        <a href="#countries" class="btn-ghost">Browse by Country</a>
+      </div>
+    </div>
+    <div class="hero-globe">
+      <div class="globe-ring">
+        <div class="globe-tile" style="background:#009246"><div class="globe-tile-inner"><span class="g-flag">🇮🇹</span><span class="g-name">Italy</span><span class="g-bar">🍫</span><span class="g-candy">Baci Perugina</span><span class="g-price">$9</span></div></div>
+        <div class="globe-tile" style="background:#006B3F"><div class="globe-tile-inner"><span class="g-flag">🇬🇭</span><span class="g-name">Ghana</span><span class="g-bar">🍫</span><span class="g-candy">Golden Tree</span><span class="g-price">$8</span></div></div>
+        <div class="globe-tile" style="background:#002395"><div class="globe-tile-inner"><span class="g-flag">🇫🇷</span><span class="g-name">France</span><span class="g-bar">🍫</span><span class="g-candy">Valrhona</span><span class="g-price">$14</span></div></div>
+      </div>
+      <div class="globe-ring" style="padding-right:60px">
+        <div class="globe-tile" style="background:#BC002D"><div class="globe-tile-inner"><span class="g-flag">🇯🇵</span><span class="g-name">Japan</span><span class="g-bar">🍬</span><span class="g-candy">Meiji Kinoko</span><span class="g-price">$7</span></div></div>
+        <div class="globe-tile" style="background:#7B5200"><div class="globe-tile-inner"><span class="g-flag">🇨🇴</span><span class="g-name">Colombia</span><span class="g-bar">🍫</span><span class="g-candy">Luker Origin</span><span class="g-price">$11</span></div></div>
+      </div>
+      <div class="globe-ring">
+        <div class="globe-tile" style="background:#006600"><div class="globe-tile-inner"><span class="g-flag">🇵🇹</span><span class="g-name">Portugal</span><span class="g-bar">🍬</span><span class="g-candy">Arcádia</span><span class="g-price">$10</span></div></div>
+        <div class="globe-tile" style="background:#1F1F80"><div class="globe-tile-inner"><span class="g-flag">🇧🇪</span><span class="g-name">Belgium</span><span class="g-bar">🍫</span><span class="g-candy">Neuhaus</span><span class="g-price">$15</span></div></div>
+        <div class="globe-tile" style="background:#7B1113"><div class="globe-tile-inner"><span class="g-flag">🇲🇽</span><span class="g-name">Mexico</span><span class="g-bar">🌶️</span><span class="g-candy">Abuelita</span><span class="g-price">$6</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-bottom-strip">
+    <div class="hbs-item"><div class="hbs-num">40+</div><div class="hbs-text"><strong>Countries Sourced</strong><span>and growing</span></div></div>
+    <div class="hbs-item"><div class="hbs-num">200+</div><div class="hbs-text"><strong>Unique Bars & Candy</strong><span>curated globally</span></div></div>
+    <div class="hbs-item"><div class="hbs-num">3</div><div class="hbs-text"><strong>New Countries</strong><span>added each month</span></div></div>
+    <div class="hbs-item"><div class="hbs-num">✈️</div><div class="hbs-text"><strong>Ships Everywhere</strong><span>door to door</span></div></div>
+  </div>
+</section>
+
+<section class="by-country reveal" id="countries">
+  <div class="section-eyebrow">Explore</div>
+  <h2 class="section-h2">Shop by<br><em>Country</em></h2>
+  <div class="countries-grid">
+    <div class="country-card cc-it"><span class="cc-flag">🇮🇹</span><h3 class="cc-country">Italy</h3><p class="cc-desc">From Baci Perugina's iconic hazelnut kisses to the rich dark bars of Turin — Italian chocolate is pure romance.</p><span class="cc-count">14 products available</span></div>
+    <div class="country-card cc-fr"><span class="cc-flag">🇫🇷</span><h3 class="cc-country">France</h3><p class="cc-desc">Valrhona, Cluizel, Bonnat — France doesn't make candy. It makes edible art.</p><span class="cc-count">11 products available</span></div>
+    <div class="country-card cc-gh"><span class="cc-flag">🇬🇭</span><h3 class="cc-country">Ghana</h3><p class="cc-desc">One of the world's finest cocoa-growing nations, now making world-class chocolate on home soil.</p><span class="cc-count">8 products available</span></div>
+    <div class="country-card cc-pt"><span class="cc-flag">🇵🇹</span><h3 class="cc-country">Portugal</h3><p class="cc-desc">Arcádia's legendary Porto confections meet pastel de nata–inspired chocolate. Understated brilliance.</p><span class="cc-count">9 products available</span></div>
+    <div class="country-card cc-co"><span class="cc-flag">🇨🇴</span><h3 class="cc-country">Colombia</h3><p class="cc-desc">Luker's single-origin Colombian cacao is rewriting what the world expects from South American chocolate.</p><span class="cc-count">7 products available</span></div>
+    <div class="country-card cc-jp"><span class="cc-flag">🇯🇵</span><h3 class="cc-country">Japan</h3><p class="cc-desc">Meiji, Lotte, Royce — Japan's precision and creativity produce candy unlike anything in the West.</p><span class="cc-count">16 products available</span></div>
+  </div>
+</section>
+
+<section class="products reveal" id="products">
+  <div class="products-header">
+    <div><div class="section-eyebrow">Handpicked</div><h2 class="section-h2" style="margin-bottom:0">Featured <em>Bars</em></h2></div>
+    <a href="#" class="see-all">View All 200+ →</a>
+  </div>
+  <div class="products-grid">
+
+    <div class="prod-card">
+      <div class="prod-origin"><span class="pflag">🇮🇹</span> Italy</div>
+      <div class="prod-visual" style="background:#F5EEE0">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.12" viewBox="0 0 300 280"><circle cx="40" cy="40" r="28" fill="#009246"/><circle cx="120" cy="40" r="28" fill="#009246"/><circle cx="200" cy="40" r="28" fill="#009246"/><circle cx="280" cy="40" r="28" fill="#009246"/><circle cx="80" cy="100" r="28" fill="#009246"/><circle cx="160" cy="100" r="28" fill="#009246"/><circle cx="240" cy="100" r="28" fill="#009246"/><circle cx="40" cy="160" r="28" fill="#009246"/><circle cx="120" cy="160" r="28" fill="#009246"/><circle cx="200" cy="160" r="28" fill="#009246"/><circle cx="80" cy="220" r="28" fill="#009246"/><circle cx="160" cy="220" r="28" fill="#009246"/></svg>
+        <div class="prod-bar" style="background:#EEDCC0"><div class="prod-bar-name">BACI</div><div class="prod-bar-sub">Dark Hazelnut</div></div>
+      </div>
+      <div class="prod-info"><div class="prod-name">Baci Perugina Dark</div><div class="prod-origin-text">🇮🇹 Perugia, Italy</div></div>
+      <div class="prod-bottom"><span class="prod-price">$9.00</span><button class="prod-add">+ Cart</button></div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-origin"><span class="pflag">🇬🇭</span> Ghana</div>
+      <div class="prod-visual" style="background:#FCEFD5">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.12" viewBox="0 0 300 280"><line x1="0" y1="0" x2="300" y2="280" stroke="#006B3F" stroke-width="5"/><line x1="60" y1="0" x2="300" y2="187" stroke="#006B3F" stroke-width="5"/><line x1="120" y1="0" x2="300" y2="140" stroke="#006B3F" stroke-width="5"/><line x1="180" y1="0" x2="300" y2="93" stroke="#006B3F" stroke-width="5"/><line x1="240" y1="0" x2="300" y2="46" stroke="#006B3F" stroke-width="5"/><line x1="0" y1="56" x2="300" y2="280" stroke="#006B3F" stroke-width="5"/><line x1="0" y1="112" x2="300" y2="280" stroke="#006B3F" stroke-width="5"/><line x1="0" y1="168" x2="300" y2="280" stroke="#006B3F" stroke-width="5"/><line x1="0" y1="224" x2="300" y2="280" stroke="#006B3F" stroke-width="5"/></svg>
+        <div class="prod-bar" style="background:#D4A843"><div class="prod-bar-name">GOLDEN TREE</div><div class="prod-bar-sub">Cocoa Origin</div></div>
+      </div>
+      <div class="prod-info"><div class="prod-name">Golden Tree Cocoa Origin</div><div class="prod-origin-text">🇬🇭 Accra, Ghana</div></div>
+      <div class="prod-bottom"><span class="prod-price">$8.00</span><button class="prod-add">+ Cart</button></div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-origin"><span class="pflag">🇫🇷</span> France</div>
+      <div class="prod-visual" style="background:#DDE8FF">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.12" viewBox="0 0 300 280"><rect x="0" y="0" width="50" height="70" fill="#002395"/><rect x="50" y="0" width="50" height="70" fill="#002395" opacity=".4"/><rect x="100" y="0" width="50" height="70" fill="#002395"/><rect x="150" y="0" width="50" height="70" fill="#002395" opacity=".4"/><rect x="200" y="0" width="50" height="70" fill="#002395"/><rect x="250" y="0" width="50" height="70" fill="#002395" opacity=".4"/><rect x="0" y="70" width="50" height="70" fill="#002395" opacity=".4"/><rect x="50" y="70" width="50" height="70" fill="#002395"/><rect x="100" y="70" width="50" height="70" fill="#002395" opacity=".4"/><rect x="150" y="70" width="50" height="70" fill="#002395"/><rect x="200" y="70" width="50" height="70" fill="#002395" opacity=".4"/><rect x="250" y="70" width="50" height="70" fill="#002395"/><rect x="0" y="140" width="50" height="70" fill="#002395"/><rect x="50" y="140" width="50" height="70" fill="#002395" opacity=".4"/><rect x="100" y="140" width="50" height="70" fill="#002395"/><rect x="150" y="140" width="50" height="70" fill="#002395" opacity=".4"/><rect x="200" y="140" width="50" height="70" fill="#002395"/><rect x="0" y="210" width="50" height="70" fill="#002395" opacity=".4"/><rect x="50" y="210" width="50" height="70" fill="#002395"/><rect x="100" y="210" width="50" height="70" fill="#002395" opacity=".4"/><rect x="150" y="210" width="50" height="70" fill="#002395"/></svg>
+        <div class="prod-bar" style="background:#1A1A2E"><div class="prod-bar-name" style="color:#fff">VALRHONA</div><div class="prod-bar-sub" style="color:rgba(255,255,255,.6)">Guanaja 70%</div></div>
+      </div>
+      <div class="prod-info"><div class="prod-name">Valrhona Guanaja 70%</div><div class="prod-origin-text">🇫🇷 Tain-l'Hermitage, France</div></div>
+      <div class="prod-bottom"><span class="prod-price">$14.00</span><button class="prod-add">+ Cart</button></div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-origin"><span class="pflag">🇨🇴</span> Colombia</div>
+      <div class="prod-visual" style="background:#FFF3CC">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.14" viewBox="0 0 300 280"><path d="M0,40 Q75,0 150,40 Q225,80 300,40" fill="none" stroke="#C8152B" stroke-width="5"/><path d="M0,80 Q75,40 150,80 Q225,120 300,80" fill="none" stroke="#C8152B" stroke-width="5"/><path d="M0,120 Q75,80 150,120 Q225,160 300,120" fill="none" stroke="#C8152B" stroke-width="5"/><path d="M0,160 Q75,120 150,160 Q225,200 300,160" fill="none" stroke="#C8152B" stroke-width="5"/><path d="M0,200 Q75,160 150,200 Q225,240 300,200" fill="none" stroke="#C8152B" stroke-width="5"/><path d="M0,240 Q75,200 150,240 Q225,280 300,240" fill="none" stroke="#C8152B" stroke-width="5"/></svg>
+        <div class="prod-bar" style="background:#6B3A1F"><div class="prod-bar-name" style="color:#fff">LUKER</div><div class="prod-bar-sub" style="color:rgba(255,255,255,.6)">Single Origin 65%</div></div>
+      </div>
+      <div class="prod-info"><div class="prod-name">Luker Single Origin 65%</div><div class="prod-origin-text">🇨🇴 Bogotá, Colombia</div></div>
+      <div class="prod-bottom"><span class="prod-price">$11.00</span><button class="prod-add">+ Cart</button></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="story reveal">
+  <div class="story-left">
+    <h2>Around the World<br><em>in 80 Bars</em></h2>
+    <p>Every country has a candy story shaped by its soil, its culture, its people. We travel the world so you don't have to, sourcing the <strong>finest, most interesting, most delicious</strong> confections from every corner of the globe.</p>
+    <p>From Ghana's sun-dried cocoa fields to Japan's precision confectionery studios — every bar carries the spirit of where it came from.</p>
+    <a href="#" class="story-cta">Our Sourcing Story →</a>
+  </div>
+  <div class="story-right">
+    <div class="story-stat"><div class="big">40+</div><strong>Countries Sourced</strong><span>on 6 continents</span></div>
+    <div class="story-stat"><div class="big">200+</div><strong>Unique Products</strong><span>curated by experts</span></div>
+    <div class="story-stat"><div class="big">100%</div><strong>Authentic Origin</strong><span>no imitations</span></div>
+    <div class="story-stat"><div class="big">3×</div><strong>Monthly Restocks</strong><span>fresh drops weekly</span></div>
+  </div>
+</section>
+
+<section class="spotlight reveal" id="spotlight">
+  <div class="spotlight-inner">
+    <div>
+      <div class="spotlight-label"></div>
+      <h2><span class="flag-inline">🇬🇭</span><br>GHANA</h2>
+      <p>Ghana produces nearly <strong>20% of the world's cocoa</strong> — and for too long that cocoa left as raw beans while other countries took the credit. A new generation of Ghanaian chocolatiers are making world-class bars right at the source.</p>
+      <a href="#" class="btn-gold" style="display:inline-block">Shop Ghana Collection →</a>
+    </div>
+    <div class="spotlight-products">
+      <div class="sl-prod"><span class="sl-prod-emoji">🍫</span><div class="sl-prod-info"><div class="sl-prod-name">Golden Tree Cocoa Origin Dark</div><div class="sl-prod-type">Dark Chocolate · 75g</div></div><span class="sl-prod-price">$8</span></div>
+      <div class="sl-prod"><span class="sl-prod-emoji">🍫</span><div class="sl-prod-info"><div class="sl-prod-name">Niche Cocoa Origin Milk</div><div class="sl-prod-type">Milk Chocolate · 60g</div></div><span class="sl-prod-price">$10</span></div>
+      <div class="sl-prod"><span class="sl-prod-emoji">🍬</span><div class="sl-prod-info"><div class="sl-prod-name">Fairafric Oats & Honey</div><div class="sl-prod-type">Oat Chocolate · 80g</div></div><span class="sl-prod-price">$11</span></div>
+      <div class="sl-prod"><span class="sl-prod-emoji">🍫</span><div class="sl-prod-info"><div class="sl-prod-name">57 Chocolate Pure Dark</div><div class="sl-prod-type">Dark Chocolate · 50g</div></div><span class="sl-prod-price">$12</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="how reveal">
+  <div class="section-eyebrow">The Process</div>
+  <h2>How It Works</h2>
+  <div class="how-steps">
+    <div class="how-step"><div class="step-num">01</div><span class="step-icon">🌍</span><h3 class="step-title">We Source Globally</h3><p class="step-desc">Our team researches and sources authentic candy bars directly from producers and specialty shops around the world — no imitations, no substitutes.</p></div>
+    <div class="how-step"><div class="step-num">02</div><span class="step-icon">✅</span><h3 class="step-title">You Browse & Choose</h3><p class="step-desc">Shop by country, flavour type, or our curated collections. Not sure where to start? Our quiz matches you to your perfect international bar.</p></div>
+    <div class="how-step"><div class="step-num">03</div><span class="step-icon">📦</span><h3 class="step-title">We Pack with Care</h3><p class="step-desc">Every order is packed to protect your bars — temperature-controlled when necessary, always handled with respect for the product inside.</p></div>
+    <div class="how-step"><div class="step-num">04</div><span class="step-icon">✈️</span><h3 class="step-title">Delivered to Your Door</h3><p class="step-desc">Fast, reliable shipping across the US and internationally. The world's best candy — from 40+ countries, direct to your hands.</p></div>
+  </div>
+</section>
+
+<section class="testimonials reveal">
+  <h2>The World Agrees</h2>
+  <div class="t-grid">
+    <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-quote">"I grew up in Portugal and hadn't tasted Arcádia in 15 years. Finding it here made me cry a little. Worth every penny."</p><div class="t-author"><div class="t-avatar">🇵🇹</div><div class="t-info"><strong>Mariana F.</strong><span>Boston, MA</span></div></div></div>
+    <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-quote">"The Ghana collection is incredible. Knowing the cocoa AND the chocolate is from the same country — that matters. Buy it."</p><div class="t-author"><div class="t-avatar">🇬🇭</div><div class="t-info"><strong>Kwame A.</strong><span>Atlanta, GA</span></div></div></div>
+    <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-quote">"I've been to Japan 6 times just for the candy. This is the first time I've gotten my fix without a 14-hour flight."</p><div class="t-author"><div class="t-avatar">🇯🇵</div><div class="t-info"><strong>Sarah T.</strong><span>Chicago, IL</span></div></div></div>
+  </div>
+</section>
+
+<section class="newsletter reveal">
+  <div class="nl-inner">
+    <h2>NEW COUNTRY.<br><span>EVERY MONTH.</span></h2>
+    <p>Join 12,000+ candy explorers. Get first access to new country drops, exclusive sourcing stories, and subscriber-only discounts.</p>
+    <div class="nl-form"><input type="email" placeholder="your@email.com"><button>Join the Club →</button></div>
+    <p class="nl-note">No spam. Just sweet dispatches from around the world.</p>
+  </div>
+</section>
+
+<section class="blog reveal" id="blog">
+  <div class="blog-header">
+    <div><div class="section-eyebrow">Stories</div><h2 class="section-h2" style="margin-bottom:0">From the <em>Field</em></h2></div>
+    <a href="#" class="see-all">Read All →</a>
+  </div>
+  <div class="blog-grid">
+    <div class="b-card"><div class="b-img bg1">🇬🇭</div><div class="b-body"><p class="b-tag"><span class="b-tag-dot"></span>Ghana · April 01, 2026</p><h3 class="b-title">Why Ghana Is the Next Great Chocolate Nation — Not Just a Cocoa Supplier</h3><p class="b-excerpt">For decades, Ghana exported raw cocoa beans while others took the profit and the praise. That story is finally changing, and we went to find out who's leading the charge.</p></div></div>
+    <div class="b-card"><div class="b-img bg2 sm">🇯🇵</div><div class="b-body"><p class="b-tag"><span class="b-tag-dot"></span>Japan · March 20, 2026</p><h3 class="b-title small">Japan's Konbini Candy Culture: A Deep Dive</h3><p class="b-excerpt">What Tokyo convenience stores can teach us about flavour innovation.</p></div></div>
+    <div class="b-card"><div class="b-img bg3 sm">🇵🇹</div><div class="b-body"><p class="b-tag"><span class="b-tag-dot"></span>Portugal · March 05, 2026</p><h3 class="b-title small">Arcádia: Porto's 100-Year-Old Chocolate Secret</h3><p class="b-excerpt">Hidden in plain sight for a century. The story of Portugal's finest chocolatier.</p></div></div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="m-word">ITALY</span><span class="m-word">GHANA</span><span class="m-word">FRANCE</span><span class="m-word">COLOMBIA</span><span class="m-word">PORTUGAL</span><span class="m-word">JAPAN</span><span class="m-word">BELGIUM</span><span class="m-word">MEXICO</span>
+    <span class="m-word">ITALY</span><span class="m-word">GHANA</span><span class="m-word">FRANCE</span><span class="m-word">COLOMBIA</span><span class="m-word">PORTUGAL</span><span class="m-word">JAPAN</span><span class="m-word">BELGIUM</span><span class="m-word">MEXICO</span>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="f-brand">
+      <span class="f-logo">Candy<span>Bar</span>.company</span>
+      <p>"The world's candy bars, finally in one place. Sourced with intention, shipped with care."</p>
+      <div class="f-flags">
+        <span class="f-flag-item">🇮🇹</span><span class="f-flag-item">🇬🇭</span><span class="f-flag-item">🇫🇷</span><span class="f-flag-item">🇨🇴</span>
+        <span class="f-flag-item">🇵🇹</span><span class="f-flag-item">🇯🇵</span><span class="f-flag-item">🇧🇪</span><span class="f-flag-item">🇲🇽</span>
+      </div>
+    </div>
+    <div class="f-col"><h4>Shop</h4><ul><li><a href="#">All Bars</a></li><li><a href="#">By Country</a></li><li><a href="#">New Arrivals</a></li><li><a href="#">Bestsellers</a></li><li><a href="#">Gift Boxes</a></li></ul></div>
+    <div class="f-col"><h4>Explore</h4><ul><li><a href="#">Country Spotlights</a></li><li><a href="#">Sourcing Stories</a></li><li><a href="#">Flavour Quiz</a></li><li><a href="#">Blog</a></li><li><a href="#">About Us</a></li></ul></div>
+    <div class="f-col"><h4>Help</h4><ul><li><a href="#">Contact</a></li><li><a href="#">Shipping & Returns</a></li><li><a href="#">FAQ</a></li><li><a href="#">Track Order</a></li><li><a href="#">Wholesale</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 CandyBar.company — All rights reserved</p>
+    <p>Chicago-based · Globally sourced · 🌍</p>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('in'); }), {threshold:.07});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+const staggerParents = document.querySelectorAll('.countries-grid,.products-grid,.t-grid,.how-steps,.spotlight-products');
+staggerParents.forEach(p => {
+  [...p.children].forEach((c,i) => {
+    c.style.cssText += `opacity:0;transform:translateY(28px);transition:opacity .6s ${i*.09}s ease,transform .6s ${i*.09}s ease`;
+  });
+});
+const cio = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) [...x.target.children].forEach(c => { c.style.opacity='1'; c.style.transform='translateY(0)'; }); }), {threshold:.08});
+staggerParents.forEach(el => cio.observe(el));
+</script>
+</body>
+</html>
